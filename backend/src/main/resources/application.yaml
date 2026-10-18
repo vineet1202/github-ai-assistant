@@ -4,13 +4,13 @@ spring:
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5433/devpilot}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
@@ -23,14 +23,27 @@ spring:
     baseline-on-migrate: true
 
   ai:
-    openai:
-      api-key: ${OPENAI_API_KEY}
-      chat:
-        options:
-          model: gpt-4o-mini
+    model:
+      chat: google-genai
       embedding:
-        options:
-          model: text-embedding-3-small
+        text: google-genai
+    google:
+      genai:
+        api-key: ${GEMINI_API_KEY}
+        chat:
+          model: gemini-3.8-flash
+        embedding:
+          api-key: ${GEMINI_API_KEY}
+          text:
+            model: gemini-embedding-001
+            dimensions: 1536
+
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        dimensions: 1536
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
 
   security:
     oauth2:
@@ -42,26 +55,26 @@ spring:
             scope:
               - read:user
               - repo
-			user-name-attribute: id
-			
+            user-name-attribute: id
+
 server:
   servlet:
-   session:
-	cookie:
-		name: DEVPILOT_SESSION
-		http_only: true
-		same-site: lax
-	timeout: 7d
+    session:
+      cookie:
+        name: DEVPILOT_SESSION
+        http-only: true
+        same-site: lax
+      timeout: 7d
 
 app:
   frontend-url: ${FRONTEND_URL:http://localhost:3000}
   cors:
-	allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
-  token-encryptor-: ${TOKEN_ENCRYPTOR_PASSWORD:devpilot-local-encrypt-key-change-me}
-  token-encryptor-salt: ${TOKEN_ENCRYTPOR_SALT:wmvpmdfyff}
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  token-encryptor-password: ${TOKEN_ENCRYPTOR_PASSWORD}
+  token-encryptor-salt: ${TOKEN_ENCRYPTOR_SALT}
   indexing:
-	max-file-bytes: 102400
-	chunk-size: 800
-	chunk-overlap: 100
+    max-file-bytes: 102400
+    chunk-size: 800
+    chunk-overlap: 100
   github:
-	api-delay-ms: 50
+    api-delay-ms: 50
