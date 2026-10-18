@@ -63,8 +63,9 @@ server:
     session:
       cookie:
         name: DEVPILOT_SESSION
+		secure: true
         http-only: true
-        same-site: lax
+        same-site: ${COOKIE_SAME_SITE:none}
       timeout: 7d
 
 app:
