@@ -58,6 +58,7 @@ spring:
             user-name-attribute: id
 
 server:
+  port: ${PORT:8080}
   servlet:
     session:
       cookie:
