@@ -30,9 +30,9 @@ public class User {
 	private UUID id;
 	
 	@Column(name = "github_id", unique = true, nullable = false)
-	private Long githuId;
+	private Long githubId;
 	
-	@Column(name = "github_id", nullable = false, length=100)
+	@Column(name = "github_username", nullable = false, length=100)
 	private String githubUsername;
 	
 	@Column(name = "display_name", nullable = false, length=100)
@@ -47,7 +47,7 @@ public class User {
 	@Column(name = "token_scope", length=500)
 	private String tokenScope;
 	
-	@Column(name = "avatar_url", nullable=false, updatable=false)
+	@Column(name = "created_at", nullable=false, updatable=false)
 	private Instant createdAt;
 	
 	@PrePersist

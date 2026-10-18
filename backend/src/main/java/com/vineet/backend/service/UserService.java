@@ -33,7 +33,7 @@ public class UserService {
 		String encryptedToken = tokenEncryptor.encrypt(accessToken);
 		
 		User user = userRepository.findByGithubId(githubId).orElseGet(User::new);
-		user.setGithuId(githubId);
+		user.setGithubId(githubId);
 		user.setGithubUsername(login);
 		user.setDisplayName(name);
 		user.setAvatarUrl(avatarUrl);
@@ -48,7 +48,7 @@ public class UserService {
 		return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
 	}
 	
-	public String descryptAccessToken(User user) {
+	public String decryptAccessToken(User user) {
 		return tokenEncryptor.decrypt(user.getAccessToken());
 	}
 	

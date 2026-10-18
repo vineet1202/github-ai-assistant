@@ -33,7 +33,7 @@ public class AuthController {
 		return ResponseEntity.ok(
 			new UserResponse(
 				user.getId(),
-				user.getGithuId(),
+				user.getGithubId(),
 				user.getGithubUsername(),
 				user.getDisplayName(),
 				user.getAvatarUrl()

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class GithuOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User>{
+public class GithubOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User>{
 
 	private final UserService userService;
 	private final DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();

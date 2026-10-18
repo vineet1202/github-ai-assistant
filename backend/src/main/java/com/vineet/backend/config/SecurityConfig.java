@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
-import com.vineet.backend.security.GithuOAuth2UserService;
+import com.vineet.backend.security.GithubOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,12 +25,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	
-	private final AuthenticationSuccessHandler oauth2SuccessHandler;
-	private final AuthenticationFailureHandler oauth2FailureHandler;
-	private final GithuOAuth2UserService githubOAuth2UserService;
+	private final GithubOAuth2UserService githubOAuth2UserService;
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http,
+			AuthenticationSuccessHandler oauth2SuccessHandler,
+			AuthenticationFailureHandler oauth2FailureHandler
+		) throws Exception {
 		http
 			.cors(Customizer.withDefaults())
 			.csrf(csrf -> csrf.disable())
